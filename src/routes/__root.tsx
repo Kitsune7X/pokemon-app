@@ -49,7 +49,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
     <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
-        <HeadContent />
+        <HeadContent /><title>Pokédex</title>
       </head>
       <body className="font-sans antialiased flex min-h-screen flex-col">
         <Header />

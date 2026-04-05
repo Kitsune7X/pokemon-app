@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 
 import { cn } from "#/lib/utils";
@@ -32,9 +32,9 @@ interface Hero2Props {
 }
 
 export default function Hero2({
-  title,
-  subtitle,
-  description,
+  title = "Pokédex",
+  subtitle = "Cute Pokédex app",
+  description = "He he",
   actions = [],
   badges = [],
   className,
@@ -87,7 +87,7 @@ export default function Hero2({
               {actions.map((action) =>
                 action.href ? (
                   <Button asChild key={action.label} variant={action.variant}>
-                    <Link href={action.href}>{action.label}</Link>
+                    <Link to={action.href}>{action.label}</Link>
                   </Button>
                 ) : (
                   <Button
@@ -106,7 +106,11 @@ export default function Hero2({
         </div>
 
         {/* Visual side */}
-        <img src="/images/8bit-orc.png" alt="Hero 2" className="w-full h-full object-cover" />
+        <img
+          src="/images/8bit-orc.png"
+          alt="Hero 2"
+          className="w-full h-full object-cover"
+        />
       </div>
     </section>
   );

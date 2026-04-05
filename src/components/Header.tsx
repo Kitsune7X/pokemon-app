@@ -4,6 +4,7 @@ import { navItems } from "#/config/nav-items";
 import { Image } from "@unpic/react";
 import { Button } from "./ui/button";
 import "./ui/8bit/styles/retro.css";
+import MobileNav from "./MobileNav";
 
 export default function Header() {
   return (
@@ -14,7 +15,12 @@ export default function Header() {
           <h2 className="sr-only">Pokédex</h2>
         </Link>
 
-        {/* Nav items */}
+        {/* Mobile Nav */}
+        <div className="block md:hidden">
+          <MobileNav />
+        </div>
+
+        {/* Desktop Nav */}
         <nav className="retro hidden items-center gap-4 text-[9px] md:flex">
           {navItems.header.map((item) => (
             <Link
