@@ -17,6 +17,7 @@ function About() {
           modern SSR defaults. Use this as a clean foundation, then layer in
           your own routes, styling, and add-ons.
         </p>
+        <p></p>
       </section>
     </main>
   )
