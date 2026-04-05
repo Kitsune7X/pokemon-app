@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 
 import { cn } from "#/lib/utils";
@@ -7,8 +7,6 @@ import { Badge } from "#/components/ui/8bit/badge";
 import { Button } from "#/components/ui/8bit/button";
 
 import "#/components/ui/8bit/styles/retro.css";
-
-export const Route = createFileRoute("/")({ component: Hero2 });
 
 interface HeroBadge {
   label: string;
@@ -33,26 +31,21 @@ interface Hero2Props {
   visual?: ReactNode;
 }
 
-const props: Hero2Props = {
-  title: "POKÉDEX",
-  subtitle: "Pokédex app",
-  description: "Be the very best",
-  actions: [
-    {
-      href: "/pokemon",
-      label: "GET STARTED",
-    },
-  ],
-};
-
-function Hero2() {
-  const { title, subtitle, description, actions = [], badges = [] } = props;
-
+export default function Hero2({
+  title = "Pokédex",
+  subtitle = "Cute Pokédex app",
+  description = "He he",
+  actions = [],
+  badges = [],
+  className,
+  children,
+  visual,
+}: Hero2Props) {
   return (
     <section
       className={cn(
         "relative w-full overflow-hidden px-4 py-16 md:py-24",
-        // className,
+        className,
       )}
     >
       <div className="relative mx-auto flex max-w-5xl flex-col gap-8 md:flex-row md:items-center md:gap-12">
@@ -109,12 +102,12 @@ function Hero2() {
             </div>
           )}
 
-          {/* {children} */}
+          {children}
         </div>
 
         {/* Visual side */}
         <img
-          src="/hero.png"
+          src="/images/8bit-orc.png"
           alt="Hero 2"
           className="w-full h-full object-cover"
         />
