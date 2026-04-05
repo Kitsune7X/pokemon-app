@@ -1,7 +1,7 @@
-import { createFileRoute } from '@tanstack/react-router';
-import { Button } from '#/components/ui/8bit/button';
+import { createFileRoute } from "@tanstack/react-router";
+import { Button } from "#/components/ui/8bit/button";
 
-export const Route = createFileRoute('/test')({
+export const Route = createFileRoute("/test")({
   component: RouteComponent,
 });
 
