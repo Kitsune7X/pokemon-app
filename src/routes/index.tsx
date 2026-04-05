@@ -40,7 +40,7 @@ const props: Hero2Props = {
   actions: [
     {
       href: "/pokemon",
-      label: "Browse Pokédex",
+      label: "GET STARTED",
     },
   ],
 };

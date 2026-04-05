@@ -1,8 +1,8 @@
-import { Link } from "@tanstack/react-router";
+import Link from "next/link";
 
 import { cn } from "#/lib/utils";
 
-import { Button } from "./ui/8bit/button";
+import { Button } from "#/components/ui/8bit/button";
 
 import "#/components/ui/8bit/styles/retro.css";
 
@@ -16,7 +16,7 @@ interface FooterColumn {
   title: string;
 }
 
-interface FooterProps {
+interface Footer1Props {
   className?: string;
   columns?: FooterColumn[];
   copyright?: string;
@@ -26,29 +26,42 @@ interface FooterProps {
 
 const defaultColumns: FooterColumn[] = [
   {
-    title: "App",
-    links: [{ label: "Browse", href: "/" }],
+    title: "Product",
+    links: [
+      { label: "Components", href: "#" },
+      { label: "Blocks", href: "#" },
+      { label: "Templates", href: "#" },
+      { label: "Changelog", href: "#" },
+    ],
   },
   {
     title: "Resources",
-    links: [{ label: "GitHub", href: "/" }],
+    links: [
+      { label: "Documentation", href: "#" },
+      { label: "GitHub", href: "#" },
+      { label: "Discord", href: "#" },
+      { label: "Contributing", href: "#" },
+    ],
+  },
+  {
+    title: "Legal",
+    links: [
+      { label: "Privacy", href: "#" },
+      { label: "Terms", href: "#" },
+      { label: "License", href: "#" },
+    ],
   },
 ];
 
-const year = new Date().getFullYear();
-
-const props: FooterProps = {
-  title: "Pokédex",
-  description: "The modern Pokédex app",
-  columns: defaultColumns,
-  copyright: `${year} Pokédex. All rights reserved.`,
-};
-
-export default function Footer() {
-  const { title = "", description = "", columns = [], copyright = "" } = props;
-
+export default function Footer1({
+  title = "8bitcn",
+  description = "The retro component library for modern builders.",
+  columns = defaultColumns,
+  copyright = "2026 8bitcn. All rights reserved.",
+  className,
+}: Footer1Props) {
   return (
-    <footer className={cn("w-full border-t px-4 py-12")}>
+    <footer className={cn("w-full border-t px-4 py-12", className)}>
       <div className="mx-auto max-w-5xl">
         <div className="grid gap-8 md:grid-cols-4">
           {/* Brand column */}
@@ -57,7 +70,9 @@ export default function Footer() {
             <p className="retro mb-4 text-muted-foreground text-[8px] leading-relaxed">
               {description}
             </p>
-            <Button className="text-[9px]">GET STARTED</Button>
+            <Button className="text-[9px]">
+              GET STARTED
+            </Button>
           </div>
 
           {/* Link columns */}
@@ -71,7 +86,7 @@ export default function Footer() {
                   <li key={link.label}>
                     <Link
                       className="retro text-[10px] transition-colors hover:text-foreground text-muted-foreground"
-                      to={link.href}
+                      href={link.href}
                     >
                       {link.label}
                     </Link>

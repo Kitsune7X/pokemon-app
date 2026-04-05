@@ -1,15 +1,14 @@
-import { Link } from "@tanstack/react-router";
-import ThemeToggle from "./ThemeToggle";
 import { navItems } from "#/config/nav-items";
+import { Link } from "@tanstack/react-router";
 import { Image } from "@unpic/react";
-import { Button } from "./ui/button";
-import "./ui/8bit/styles/retro.css";
 import MobileNav from "./MobileNav";
+import "./ui/8bit/styles/retro.css";
+import { Button } from "./ui/button";
 
 export default function Header() {
   return (
     <header className="sticky top-0 z-50 flex h-14 shrink-0 items-center gap-2 border-b border-dashed bg-background/95">
-      <div className="flex h-full w-full max-w-[1400px] items-center justify-start gap-2 border-r border-l border-dashed px-2 md:mx-auto md:justify-between md:gap-5 md:px-6">
+      <div className="flex h-full w-full max-w-350 items-center justify-start gap-2 border-r border-l border-dashed px-2 md:mx-auto md:justify-between md:gap-5 md:px-6">
         <Link to="/">
           <Image alt="logo" height={32} src="/poke-ball.png" width={32} />
           <h2 className="sr-only">Pokédex</h2>
