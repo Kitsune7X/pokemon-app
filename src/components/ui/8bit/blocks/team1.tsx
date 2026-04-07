@@ -6,10 +6,7 @@ import {
   AvatarImage,
 } from "#/components/ui/8bit/avatar";
 import { Badge } from "#/components/ui/8bit/badge";
-import {
-  Card,
-  CardContent,
-} from "#/components/ui/8bit/card";
+import { Card, CardContent } from "#/components/ui/8bit/card";
 
 import "#/components/ui/8bit/styles/retro.css";
 
@@ -29,12 +26,22 @@ interface Team1Props {
 }
 
 const defaultMembers: TeamMember[] = [
-  { initials: "OD", name: "OrcDev", role: "Founder / Lead Dev", badge: "ADMIN" },
+  {
+    initials: "OD",
+    name: "OrcDev",
+    role: "Founder / Lead Dev",
+    badge: "ADMIN",
+  },
   { initials: "PK", name: "PixelKnight", role: "Core Contributor" },
   { initials: "CM", name: "CodeMage", role: "Component Engineer" },
   { initials: "RR", name: "RetroRogue", role: "Design Lead" },
   { initials: "DM", name: "DungeonMaster", role: "Documentation" },
-  { initials: "SS", name: "SwordSmith", role: "Community Manager", badge: "MOD" },
+  {
+    initials: "SS",
+    name: "SwordSmith",
+    role: "Community Manager",
+    badge: "MOD",
+  },
 ];
 
 export default function Team1({
@@ -54,7 +61,9 @@ export default function Team1({
               </h2>
             )}
             {description && (
-              <p className="retro text-muted-foreground text-[9px]">{description}</p>
+              <p className="retro text-muted-foreground text-[9px]">
+                {description}
+              </p>
             )}
           </div>
         )}

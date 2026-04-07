@@ -1,4 +1,5 @@
-import { type VariantProps, cva } from "class-variance-authority";
+import {  cva } from "class-variance-authority";
+import type {VariantProps} from "class-variance-authority";
 
 import { cn } from "#/lib/utils";
 
@@ -34,7 +35,8 @@ export const buttonVariants = cva("", {
 });
 
 export interface BitButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+  extends
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
   ref?: React.Ref<HTMLButtonElement>;
@@ -50,7 +52,7 @@ function Button({ children, asChild, ...props }: BitButtonProps) {
         "rounded-none active:translate-y-1 transition-transform relative inline-flex items-center justify-center gap-1.5 border-none",
         size === "icon" && "mx-1 my-0",
         font !== "normal" && "retro",
-        className
+        className,
       )}
       size={size}
       variant={variant}

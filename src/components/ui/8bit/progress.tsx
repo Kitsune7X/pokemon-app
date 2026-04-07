@@ -1,5 +1,6 @@
 import * as ProgressPrimitive from "@radix-ui/react-progress";
-import { type VariantProps, cva } from "class-variance-authority";
+import {  cva } from "class-variance-authority";
+import type {VariantProps} from "class-variance-authority";
 
 import { cn } from "#/lib/utils";
 
@@ -22,7 +23,8 @@ export const progressVariants = cva("", {
 });
 
 export interface BitProgressProps
-  extends React.ComponentProps<typeof ProgressPrimitive.Root>,
+  extends
+    React.ComponentProps<typeof ProgressPrimitive.Root>,
     VariantProps<typeof progressVariants> {
   className?: string;
   font?: VariantProps<typeof progressVariants>["font"];
@@ -48,7 +50,7 @@ function Progress({
         className={cn(
           "bg-primary/20 relative w-full overflow-hidden",
           heightClass,
-          font !== "normal" && "retro"
+          font !== "normal" && "retro",
         )}
         value={value}
         {...props}
@@ -58,7 +60,7 @@ function Progress({
           className={cn(
             "h-full transition-all",
             variant === "retro" ? "flex w-full" : "w-full flex-1",
-            variant !== "retro" && (progressBg || "bg-primary")
+            variant !== "retro" && (progressBg || "bg-primary"),
           )}
           style={
             variant === "retro"
@@ -77,7 +79,7 @@ function Progress({
                       "flex-1 h-full mx-[1px]",
                       i < filledSquares
                         ? progressBg || "bg-primary"
-                        : "bg-transparent"
+                        : "bg-transparent",
                     )}
                   />
                 );

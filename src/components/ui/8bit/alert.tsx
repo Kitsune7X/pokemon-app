@@ -1,4 +1,5 @@
-import { type VariantProps, cva } from "class-variance-authority";
+import {  cva } from "class-variance-authority";
+import type {VariantProps} from "class-variance-authority";
 
 import { cn } from "#/lib/utils";
 
@@ -26,10 +27,15 @@ export const alertVariants = cva("", {
 });
 
 export interface BitAlertProps
-  extends React.ComponentProps<"div">,
-    VariantProps<typeof alertVariants> {}
+  extends React.ComponentProps<"div">, VariantProps<typeof alertVariants> {}
 
-function Alert({ children, className, font, variant, ...props }: BitAlertProps) {
+function Alert({
+  children,
+  className,
+  font,
+  variant,
+  ...props
+}: BitAlertProps) {
   return (
     <div className="relative">
       <ShadcnAlert
@@ -38,7 +44,7 @@ function Alert({ children, className, font, variant, ...props }: BitAlertProps) 
         className={cn(
           "relative rounded-none border-none bg-background",
           font !== "normal" && "retro",
-          className
+          className,
         )}
       >
         {children}
@@ -80,7 +86,7 @@ function AlertDescription({
     <ShadcnAlertDescription
       className={cn(
         "text-muted-foreground grid justify-items-start gap-1 text-sm [&_p]:leading-relaxed",
-        className
+        className,
       )}
       {...props}
     />

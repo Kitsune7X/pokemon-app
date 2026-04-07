@@ -1,4 +1,5 @@
-import { type VariantProps, cva } from "class-variance-authority";
+import {  cva } from "class-variance-authority";
+import type {VariantProps} from "class-variance-authority";
 import { MoreHorizontal } from "lucide-react";
 
 import { cn } from "#/lib/utils";
@@ -42,7 +43,7 @@ function Pagination({ ...props }: BitPaginationProps<"nav">) {
       className={cn(
         paginationVariants({ variant }),
         font !== "normal" && "retro",
-        className
+        className,
       )}
     />
   );
@@ -171,7 +172,7 @@ function PaginationLink({ ...props }: PaginationLinkProps) {
         "dark:hover:border-ring dark:focus:border-ring",
         "hover:border-foreground focus:border-foreground",
         "active:border-transparent",
-        "data-[active=true]:border-none aria-[current=page]:border-none"
+        "data-[active=true]:border-none aria-[current=page]:border-none",
       )}
       {...props}
     >
@@ -227,7 +228,7 @@ function PaginationPrevious({
         "dark:hover:border-ring dark:focus:border-ring",
         "data-[active=true]:border-none aria-[current=page]:border-none",
         font !== "normal" && "retro",
-        className
+        className,
       )}
       {...props}
     >
@@ -254,7 +255,7 @@ function PaginationNext({
         "data-[active=true]:border-none aria-[current=page]:border-none",
         "flex flex-row text-sm w-full",
         font !== "normal" && "retro",
-        className
+        className,
       )}
       {...props}
     >
