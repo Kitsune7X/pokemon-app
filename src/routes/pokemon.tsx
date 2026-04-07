@@ -1,9 +1,5 @@
-import type {
-  PokemonPaginationResponse,
-  PokemonSummary,
-} from "#/types/pokemon";
+import type { PokemonSummary } from "#/types/pokemon";
 import { createFileRoute } from "@tanstack/react-router";
-import { createServerFn } from "@tanstack/react-start";
 
 import AppAlert from "#/components/AppAlert";
 import PaginationApp from "#/components/PaginationApp";
@@ -17,68 +13,56 @@ import { Button } from "#/components/ui/8bit/button";
 import { Card, CardContent } from "#/components/ui/8bit/card";
 import "#/components/ui/8bit/styles/retro.css";
 import { toast } from "#/components/ui/8bit/toast";
-
-const fetchPokemonList = createServerFn().handler(
-  async (): Promise<PokemonPaginationResponse> => {
-    const response = await fetch(process.env.POKE_API_PAGINATION_URL as string);
-
-    if (!response.ok) {
-      throw new Error(`Failed to fetch Pokémon: ${response.statusText}`);
-    }
-
-    return await response.json();
-  },
-);
+import { pokemonsQueryOptions } from "#/utils/pokemon.functions";
+import { useSuspenseQuery } from "@tanstack/react-query";
 
 export const Route = createFileRoute("/pokemon")({
   component: PokemonPage,
-  loader: async (): Promise<{
-    pokemons: PokemonSummary[];
-    error: string | null;
-    previous: string | null;
-    next: string | null;
-  }> => {
-    try {
-      const pokemonData = await fetchPokemonList();
-
-      return {
-        pokemons: pokemonData.results,
-        error: null,
-        previous: pokemonData.previous,
-        next: pokemonData.next,
-      };
-    } catch (error) {
-      console.error("Error fetching pokémon list:", error);
-      return {
-        pokemons: [],
-        error: "Failed to load Pokémon",
-        previous: null,
-        next: null,
-      };
-    }
+  loader: async ({ context }) => {
+    await context.queryClient.ensureQueryData(pokemonsQueryOptions());
   },
 });
 
 function PokemonPage() {
-  const { pokemons, error, previous, next } = Route.useLoaderData();
+  const { data, error } = useSuspenseQuery(pokemonsQueryOptions());
+
+  const pokemons = data.results;
+  // console.log(pokemons);
 
   return (
     <section className="w-full px-4 py-16 md:py-24">
-      {error && <AppAlert title={error} />}
+      {error && <AppAlert title={error.message} />}
 
       {pokemons.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-1 md:max-w-4xl xl:max-w-6xl mx-auto">
-          {pokemons.map((pokemon) => (
-            <PokemonCard pokemon={pokemon} key={pokemon.name} />
-          ))}
+        <div>
+          <div className="mb-10">
+            <PaginationApp previous={data.previous} next={data.next} />
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-1 md:max-w-4xl xl:max-w-6xl mx-auto">
+            {pokemons.map((pokemon) => (
+              <PokemonCard pokemon={pokemon} key={pokemon.name} />
+            ))}
+          </div>
+          <div className="mt-20">
+            <PaginationApp previous={data.previous} next={data.next} />
+          </div>
         </div>
       ) : (
         !error && toast("Loading...")
       )}
 
-      <div className="mt-20">
-        <PaginationApp previous={previous} next={next} />
-      </div>
+      {/* Debug button */}
+      {/* <Button
+        onClick={async () => {
+          const z = await queryClient.fetchQuery({
+            queryKey: ["pokemons"],
+            queryFn: () => fetchPokemonList({ data: { url: `${data.next}` } }),
+          });
+          console.log(z);
+        }}
+      >
+        DEBUG BUTTON!
+      </Button> */}
     </section>
   );
 }

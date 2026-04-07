@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import {
   Pagination,
   PaginationContent,
@@ -7,6 +8,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "./ui/8bit/pagination";
+import { pokemonsQueryOptions } from "#/utils/pokemon.functions";
 
 export default function PaginationApp({
   previous,
@@ -15,16 +17,22 @@ export default function PaginationApp({
   previous: string | null;
   next: string | null;
 }) {
+  const queryClient = useQueryClient();
+
   return (
     <Pagination>
       <PaginationContent>
         {previous && (
           <PaginationItem>
-            <PaginationPrevious href={previous} />
+            <PaginationPrevious
+              onClick={() =>
+                queryClient.fetchQuery(pokemonsQueryOptions(`${previous}`))
+              }
+            />
           </PaginationItem>
         )}
         <PaginationItem>
-          <PaginationLink href="/">1</PaginationLink>
+          <PaginationLink>1</PaginationLink>
         </PaginationItem>
 
         <PaginationItem>
@@ -32,7 +40,11 @@ export default function PaginationApp({
         </PaginationItem>
         {next && (
           <PaginationItem>
-            <PaginationNext href={next} />
+            <PaginationNext
+              onClick={() =>
+                queryClient.fetchQuery(pokemonsQueryOptions(`${next}`))
+              }
+            />
           </PaginationItem>
         )}
       </PaginationContent>
