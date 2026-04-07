@@ -21,7 +21,10 @@ export const Route = createFileRoute("/pokemon")({
   loader: async ({ context }) => {
     await context.queryClient.ensureQueryData({
       queryKey: ["pokemons"],
-      queryFn: fetchPokemonList,
+      queryFn: () =>
+        fetchPokemonList({
+          data: { url: process.env.POKE_API_PAGINATION_URL as string },
+        }),
     });
   },
 });
@@ -29,7 +32,10 @@ export const Route = createFileRoute("/pokemon")({
 function PokemonPage() {
   const { data, error } = useSuspenseQuery({
     queryKey: ["pokemons"],
-    queryFn: fetchPokemonList,
+    queryFn: () =>
+      fetchPokemonList({
+        data: { url: process.env.POKE_API_PAGINATION_URL as string },
+      }),
   });
 
   const queryClient = useQueryClient();
@@ -59,13 +65,7 @@ function PokemonPage() {
         onClick={async () => {
           const z = await queryClient.fetchQuery({
             queryKey: ["pokemons"],
-            queryFn: async () => {
-              const response = await fetch(
-                "https://pokeapi.co/api/v2/pokemon/?offset=60&limit=20",
-              );
-
-              return await response.json();
-            },
+            queryFn: () => fetchPokemonList({ data: { url: `${data.next}` } }),
           });
           console.log(z);
         }}
