@@ -13,34 +13,18 @@ import { Button } from "#/components/ui/8bit/button";
 import { Card, CardContent } from "#/components/ui/8bit/card";
 import "#/components/ui/8bit/styles/retro.css";
 import { toast } from "#/components/ui/8bit/toast";
-import { fetchPokemonList } from "#/utils/pokemon.functions";
-import { useSuspenseQuery, useQueryClient } from "@tanstack/react-query";
-import { env } from "#/utils/schemas";
+import { pokemonsQueryOptions } from "#/utils/pokemon.functions";
+import { useSuspenseQuery } from "@tanstack/react-query";
 
-const pokeAPIUrl = "https://pokeapi.co/api/v2/pokemon";
 export const Route = createFileRoute("/pokemon")({
   component: PokemonPage,
   loader: async ({ context }) => {
-    await context.queryClient.ensureQueryData({
-      queryKey: ["pokemons"],
-      queryFn: () =>
-        fetchPokemonList({
-          data: { url: env.POKE_API_URL },
-        }),
-    });
+    await context.queryClient.ensureQueryData(pokemonsQueryOptions());
   },
 });
 
 function PokemonPage() {
-  const { data, error } = useSuspenseQuery({
-    queryKey: ["pokemons"],
-    queryFn: () =>
-      fetchPokemonList({
-        data: { url: env.POKE_API_URL },
-      }),
-  });
-
-  const queryClient = useQueryClient();
+  const { data, error } = useSuspenseQuery(pokemonsQueryOptions());
 
   const pokemons = data.results;
   // console.log(pokemons);
@@ -50,20 +34,25 @@ function PokemonPage() {
       {error && <AppAlert title={error.message} />}
 
       {pokemons.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-1 md:max-w-4xl xl:max-w-6xl mx-auto">
-          {pokemons.map((pokemon) => (
-            <PokemonCard pokemon={pokemon} key={pokemon.name} />
-          ))}
+        <div>
+          <div className="mb-10">
+            <PaginationApp previous={data.previous} next={data.next} />
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-1 md:max-w-4xl xl:max-w-6xl mx-auto">
+            {pokemons.map((pokemon) => (
+              <PokemonCard pokemon={pokemon} key={pokemon.name} />
+            ))}
+          </div>
+          <div className="mt-20">
+            <PaginationApp previous={data.previous} next={data.next} />
+          </div>
         </div>
       ) : (
         !error && toast("Loading...")
       )}
 
-      <div className="mt-20">
-        <PaginationApp previous={data.previous} next={data.next} />
-      </div>
       {/* Debug button */}
-      <Button
+      {/* <Button
         onClick={async () => {
           const z = await queryClient.fetchQuery({
             queryKey: ["pokemons"],
@@ -73,7 +62,7 @@ function PokemonPage() {
         }}
       >
         DEBUG BUTTON!
-      </Button>
+      </Button> */}
     </section>
   );
 }

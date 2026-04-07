@@ -9,6 +9,7 @@ export const env = createEnv({
   server: {
     POKE_API_URL: z.string(),
   },
+
   runtimeEnv: process.env,
   emptyStringAsUndefined: true,
 });
