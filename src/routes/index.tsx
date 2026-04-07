@@ -8,7 +8,7 @@ import { Button } from "#/components/ui/8bit/button";
 
 import "#/components/ui/8bit/styles/retro.css";
 
-export const Route = createFileRoute("/")({ component: Hero2 });
+export const Route = createFileRoute("/")({ component: Hero });
 
 interface HeroBadge {
   label: string;
@@ -22,7 +22,7 @@ interface HeroAction {
   variant?: "default" | "destructive" | "ghost" | "outline" | "secondary";
 }
 
-interface Hero2Props {
+interface HeroProps {
   actions?: HeroAction[];
   badges?: HeroBadge[];
   children?: ReactNode;
@@ -33,7 +33,7 @@ interface Hero2Props {
   visual?: ReactNode;
 }
 
-const props: Hero2Props = {
+const props: HeroProps = {
   title: "POKÉDEX",
   subtitle: "Pokédex app",
   description: "Be the very best",
@@ -45,7 +45,7 @@ const props: Hero2Props = {
   ],
 };
 
-function Hero2() {
+function Hero() {
   const { title, subtitle, description, actions = [], badges = [] } = props;
 
   return (
@@ -115,7 +115,7 @@ function Hero2() {
         {/* Visual side */}
         <img
           src="/hero.png"
-          alt="Hero 2"
+          alt="Hero"
           className="w-full h-full object-cover"
         />
       </div>

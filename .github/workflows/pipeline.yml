@@ -20,7 +20,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Check style
-        run: npm run check
+        run: npm run check .
       # TODO: Write tests and test pipeline
       - name: Build
         run: npm run build

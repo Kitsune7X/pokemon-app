@@ -106,7 +106,7 @@ const Avatar = forwardRef<
           isPixel && "rounded-full",
           font !== "normal" && "retro",
           variant === "retro" && "image-rendering-pixelated",
-          className
+          className,
         )}
         {...props}
       />
@@ -127,8 +127,9 @@ const Avatar = forwardRef<
 });
 Avatar.displayName = AvatarPrimitive.Root.displayName;
 
-interface BitAvatarImageProps
-  extends React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Image> {
+interface BitAvatarImageProps extends React.ComponentPropsWithoutRef<
+  typeof AvatarPrimitive.Image
+> {
   font?: "normal" | "retro";
   variant?: "default" | "retro" | "pixel";
 }
@@ -144,7 +145,7 @@ const AvatarImage = forwardRef<
       className={cn(
         "aspect-square h-full w-full",
         font === "retro" && "retro",
-        className
+        className,
       )}
       {...props}
     />
@@ -161,7 +162,7 @@ const AvatarFallback = forwardRef<
     data-slot="avatar-fallback"
     className={cn(
       "flex h-full w-full items-center justify-center rounded-full bg-muted text-foreground",
-      className
+      className,
     )}
     {...props}
   />
