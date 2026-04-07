@@ -1,4 +1,5 @@
 import { Alert, AlertDescription, AlertTitle } from "./ui/8bit/alert";
+import "#/components/ui/8bit/styles/retro.css";
 
 export default function AppAlert({
   title,
@@ -8,7 +9,7 @@ export default function AppAlert({
   description?: string | null;
 }) {
   return (
-    <Alert>
+    <Alert className="retro">
       <AlertTitle>{title}</AlertTitle>
       {description && <AlertDescription>{description}</AlertDescription>}
     </Alert>

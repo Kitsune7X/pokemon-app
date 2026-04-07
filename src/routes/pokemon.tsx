@@ -1,9 +1,5 @@
-import type {
-  PokemonPaginationResponse,
-  PokemonSummary,
-} from "#/types/pokemon";
+import type { PokemonSummary } from "#/types/pokemon";
 import { createFileRoute } from "@tanstack/react-router";
-import { createServerFn } from "@tanstack/react-start";
 
 import AppAlert from "#/components/AppAlert";
 import PaginationApp from "#/components/PaginationApp";
@@ -17,29 +13,23 @@ import { Button } from "#/components/ui/8bit/button";
 import { Card, CardContent } from "#/components/ui/8bit/card";
 import "#/components/ui/8bit/styles/retro.css";
 import { toast } from "#/components/ui/8bit/toast";
-
-const fetchPokemonList = createServerFn().handler(
-  async (): Promise<PokemonPaginationResponse> => {
-    const response = await fetch(process.env.POKE_API_PAGINATION_URL as string);
-
-    if (!response.ok) {
-      throw new Error(`Failed to fetch Pokémon: ${response.statusText}`);
-    }
-
-    return await response.json();
-  },
-);
+import { pokemonsQueryOptions } from "#/utils/pokemon.server";
 
 export const Route = createFileRoute("/pokemon")({
   component: PokemonPage,
-  loader: async (): Promise<{
+  loader: async ({
+    context,
+  }): Promise<{
     pokemons: PokemonSummary[];
     error: string | null;
     previous: string | null;
     next: string | null;
   }> => {
     try {
-      const pokemonData = await fetchPokemonList();
+      const pokemonData = await context.queryClient.ensureQueryData(
+        pokemonsQueryOptions(),
+      );
+      console.log(pokemonData);
 
       return {
         pokemons: pokemonData.results,
