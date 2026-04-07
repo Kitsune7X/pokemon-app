@@ -1,6 +1,13 @@
 import type { PokemonPaginationResponse } from "#/types/pokemon";
 import { createServerFn } from "@tanstack/react-start";
 import { PokeAPIUrl } from "./schemas";
+import { queryOptions } from "@tanstack/react-query";
+
+export const pokemonsQueryOptions = (url: string) =>
+  queryOptions({
+    queryKey: ["pokemons"],
+    queryFn: () => fetchPokemonList({ data: { url } }),
+  });
 
 export const fetchPokemonList = createServerFn({ method: "GET" })
   .inputValidator(PokeAPIUrl)

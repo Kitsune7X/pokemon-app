@@ -15,7 +15,9 @@ import "#/components/ui/8bit/styles/retro.css";
 import { toast } from "#/components/ui/8bit/toast";
 import { fetchPokemonList } from "#/utils/pokemon.functions";
 import { useSuspenseQuery, useQueryClient } from "@tanstack/react-query";
+import { env } from "#/utils/schemas";
 
+const pokeAPIUrl = "https://pokeapi.co/api/v2/pokemon";
 export const Route = createFileRoute("/pokemon")({
   component: PokemonPage,
   loader: async ({ context }) => {
@@ -23,7 +25,7 @@ export const Route = createFileRoute("/pokemon")({
       queryKey: ["pokemons"],
       queryFn: () =>
         fetchPokemonList({
-          data: { url: process.env.POKE_API_PAGINATION_URL as string },
+          data: { url: env.POKE_API_URL },
         }),
     });
   },
@@ -34,7 +36,7 @@ function PokemonPage() {
     queryKey: ["pokemons"],
     queryFn: () =>
       fetchPokemonList({
-        data: { url: process.env.POKE_API_PAGINATION_URL as string },
+        data: { url: env.POKE_API_URL },
       }),
   });
 

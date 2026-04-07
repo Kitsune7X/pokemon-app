@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@fontsource-variable/geist": "^5.2.8",
+    "@t3-oss/env-core": "^0.13.11",
     "@tailwindcss/vite": "^4.2.2",
     "@tanstack/react-devtools": "latest",
     "@tanstack/react-query": "latest",
