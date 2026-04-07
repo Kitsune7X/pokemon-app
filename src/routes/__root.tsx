@@ -14,6 +14,8 @@ import appCss from "../styles.css?url";
 
 import type { QueryClient } from "@tanstack/react-query";
 
+import { Toaster } from "#/components/ui/sonner";
+
 interface MyRouterContext {
   queryClient: QueryClient;
 }
@@ -49,7 +51,8 @@ function RootDocument({ children }: { children: React.ReactNode }) {
     <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
-        <HeadContent /><title>Pokédex</title>
+        <HeadContent />
+        <title>Pokédex</title>
       </head>
       <body className="font-sans antialiased flex min-h-screen flex-col">
         <Header />
@@ -67,6 +70,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             TanStackQueryDevtools,
           ]}
         />
+        <Toaster />
         <Scripts />
       </body>
     </html>
