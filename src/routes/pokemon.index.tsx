@@ -14,29 +14,34 @@ import { Card, CardContent } from "#/components/ui/8bit/card";
 import { Spinner } from "#/components/ui/8bit/spinner";
 import "#/components/ui/8bit/styles/retro.css";
 import { toast } from "#/components/ui/8bit/toast";
+import { pokeApiBaseUrl } from "#/config/pokeApiUrl";
 import { pokemonsQueryOptions } from "#/utils/pokemon.functions";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 
-export const Route = createFileRoute("/pokemon")({
+export const Route = createFileRoute("/pokemon/")({
   component: PokemonPage,
-  loader: async ({ context }) => {
-    await context.queryClient.ensureQueryData(pokemonsQueryOptions());
-  },
 });
 
 function PokemonPage() {
-  const { data, error } = useSuspenseQuery(pokemonsQueryOptions());
+  const [url, setUrl] = useState(pokeApiBaseUrl);
 
-  const pokemons = data.results;
+  const { data, error } = useQuery(pokemonsQueryOptions(url));
+
+  const pokemons = data?.results ?? [];
 
   return (
-    <section className="w-full px-4 py-16 md:py-24">
+    <>
       {error && <AppAlert title={error.message} />}
 
-      {pokemons.length > 0 ? (
+      {data ? (
         <div>
           <div className="mb-10">
-            <PaginationApp previous={data.previous} next={data.next} />
+            <PaginationApp
+              previous={data.previous}
+              next={data.next}
+              setUrl={setUrl}
+            />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-1 md:max-w-4xl xl:max-w-6xl mx-auto">
             {pokemons.map((pokemon) => (
@@ -44,26 +49,17 @@ function PokemonPage() {
             ))}
           </div>
           <div className="mt-20">
-            <PaginationApp previous={data.previous} next={data.next} />
+            <PaginationApp
+              previous={data.previous}
+              next={data.next}
+              setUrl={setUrl}
+            />
           </div>
         </div>
       ) : (
         !error && toast("Loading...")
       )}
-
-      {/* Debug button */}
-      {/* <Button
-        onClick={async () => {
-          const z = await queryClient.fetchQuery({
-            queryKey: ["pokemons"],
-            queryFn: () => fetchPokemonList({ data: { url: `${data.next}` } }),
-          });
-          console.log(z);
-        }}
-      >
-        DEBUG BUTTON!
-      </Button> */}
-    </section>
+    </>
   );
 }
 
@@ -97,5 +93,3 @@ function PokemonCard({ pokemon }: { pokemon: PokemonSummary }) {
     </Card>
   );
 }
-
-// TODO: Refactor this to use Query for pagination

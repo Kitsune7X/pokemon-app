@@ -1,4 +1,5 @@
-import { useQueryClient } from "@tanstack/react-query";
+import { pokeApiBaseUrl } from "#/config/pokeApiUrl";
+import type { Dispatch, SetStateAction } from "react";
 import {
   Pagination,
   PaginationContent,
@@ -8,33 +9,27 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "./ui/8bit/pagination";
-import { pokemonsQueryOptions } from "#/utils/pokemon.functions";
 
 export default function PaginationApp({
   previous,
   next,
+
+  setUrl,
 }: {
   previous: string | null;
   next: string | null;
+  setUrl: Dispatch<SetStateAction<string>>;
 }) {
-  const queryClient = useQueryClient();
-
   return (
     <Pagination>
       <PaginationContent>
         {previous && (
           <PaginationItem>
-            <PaginationPrevious
-              onClick={() =>
-                queryClient.fetchQuery(pokemonsQueryOptions(`${previous}`))
-              }
-            />
+            <PaginationPrevious onClick={() => setUrl(previous)} />
           </PaginationItem>
         )}
         <PaginationItem>
-          <PaginationLink
-            onClick={() => queryClient.fetchQuery(pokemonsQueryOptions())}
-          >
+          <PaginationLink onClick={() => setUrl(pokeApiBaseUrl)}>
             1
           </PaginationLink>
         </PaginationItem>
@@ -44,16 +39,10 @@ export default function PaginationApp({
         </PaginationItem>
         {next && (
           <PaginationItem>
-            <PaginationNext
-              onClick={() =>
-                queryClient.fetchQuery(pokemonsQueryOptions(`${next}`))
-              }
-            />
+            <PaginationNext onClick={() => setUrl(next)} />
           </PaginationItem>
         )}
       </PaginationContent>
     </Pagination>
   );
 }
-
-// TODO: Make numbered pagination work
