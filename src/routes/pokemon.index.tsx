@@ -1,5 +1,5 @@
 import type { PokemonSummary } from "#/types/pokemon";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 
 import AppAlert from "#/components/AppAlert";
 import PaginationApp from "#/components/PaginationApp";
@@ -86,8 +86,10 @@ function PokemonCard({ pokemon }: { pokemon: PokemonSummary }) {
           </div>
         </div>
 
-        <Button className="w-full" variant="outline">
-          Details
+        <Button className="w-full" variant="outline" asChild>
+          <Link to="/pokemon/$name" params={{ name: pokemon.name }}>
+            Details
+          </Link>
         </Button>
       </CardContent>
     </Card>

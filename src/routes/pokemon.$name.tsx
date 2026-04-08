@@ -7,5 +7,5 @@ export const Route = createFileRoute("/pokemon/$name")({
 function RouteComponent() {
   const name = Route.useParams().name;
   console.log(name);
-  return <div>Hello "/pokemon/$name"!</div>;
+  return <div>{`Hello ${name}`}</div>;
 }
