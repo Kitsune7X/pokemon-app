@@ -32,7 +32,11 @@ export default function PaginationApp({
           </PaginationItem>
         )}
         <PaginationItem>
-          <PaginationLink>1</PaginationLink>
+          <PaginationLink
+            onClick={() => queryClient.fetchQuery(pokemonsQueryOptions())}
+          >
+            1
+          </PaginationLink>
         </PaginationItem>
 
         <PaginationItem>

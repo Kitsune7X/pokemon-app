@@ -2,8 +2,8 @@ import type { PokemonPaginationResponse } from "#/types/pokemon";
 import { queryOptions } from "@tanstack/react-query";
 import { createServerFn } from "@tanstack/react-start";
 import { PokeAPIUrl } from "./schemas";
+import { pokeApiBaseUrl } from "#/config/pokeApiUrl";
 
-const pokeApiBaseUrl = "https://pokeapi.co/api/v2/pokemon";
 export const pokemonsQueryOptions = (url: string = pokeApiBaseUrl) =>
   queryOptions({
     queryKey: ["pokemons"],

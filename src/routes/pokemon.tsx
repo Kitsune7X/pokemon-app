@@ -11,6 +11,7 @@ import {
 import { Badge } from "#/components/ui/8bit/badge";
 import { Button } from "#/components/ui/8bit/button";
 import { Card, CardContent } from "#/components/ui/8bit/card";
+import { Spinner } from "#/components/ui/8bit/spinner";
 import "#/components/ui/8bit/styles/retro.css";
 import { toast } from "#/components/ui/8bit/toast";
 import { pokemonsQueryOptions } from "#/utils/pokemon.functions";
@@ -27,7 +28,6 @@ function PokemonPage() {
   const { data, error } = useSuspenseQuery(pokemonsQueryOptions());
 
   const pokemons = data.results;
-  // console.log(pokemons);
 
   return (
     <section className="w-full px-4 py-16 md:py-24">
@@ -80,7 +80,7 @@ function PokemonCard({ pokemon }: { pokemon: PokemonSummary }) {
         <div className="flex items-center mr-auto gap-7 sm:gap-4">
           <Avatar className="size-20" variant="pixel">
             {spritesUrl && <AvatarImage alt={pokemon.name} src={spritesUrl} />}
-            <AvatarFallback>{pokemon.name}</AvatarFallback>
+            <AvatarFallback>{<Spinner variant="diamond" />}</AvatarFallback>
           </Avatar>
           <div className="flex flex-col gap-2 items-start">
             <Badge>{`No.${pokemonId}`}</Badge>

@@ -1,8 +1,6 @@
 import { Button } from "#/components/ui/8bit/button";
-import { fetchPokemonList } from "#/utils/pokemon.functions";
-import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import { createServerFn, useServerFn } from "@tanstack/react-start";
+import { createServerFn } from "@tanstack/react-start";
 
 // const pokemonsQuery = queryOptions({
 //   queryKey: ["pokemons"],
@@ -19,14 +17,6 @@ export const getServerTime = createServerFn().handler(async () => {
 });
 
 function RouteComponent() {
-  const getPokemons = useServerFn(fetchPokemonList);
-
-  const result = useSuspenseQuery({
-    queryKey: ["pokemons"],
-    queryFn: () => getPokemons(),
-  });
-
-  console.log(result);
   return (
     <div>
       <h2>Test route</h2>
