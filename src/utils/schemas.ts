@@ -5,6 +5,10 @@ export const PokeAPIUrl = z.object({
   url: z.string(),
 });
 
+export const PokemonId = z.object({
+  id: z.string(),
+});
+
 export const env = createEnv({
   server: {
     POKE_API_URL: z.string(),

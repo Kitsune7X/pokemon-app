@@ -13,3 +13,25 @@ export interface PokemonPaginationResponse {
   previous: string | null;
   results: PokemonSummary[];
 }
+
+export interface PokemonStat {
+  base_stat: number;
+  stat: {
+    name: string;
+  };
+}
+
+export interface PokemonAbility {
+  ability: {
+    name: string;
+  };
+}
+
+export interface PokemonSheetResponse {
+  id: number;
+  name: string;
+  height: number;
+  weight: number;
+  stats: PokemonStat[];
+  abilities: PokemonAbility[];
+}

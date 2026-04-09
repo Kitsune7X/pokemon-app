@@ -21,6 +21,8 @@ import { useState } from "react";
 
 export const Route = createFileRoute("/pokemon/")({
   component: PokemonPage,
+  loader: ({ context }) =>
+    context.queryClient.ensureQueryData(pokemonsQueryOptions()),
 });
 
 function PokemonPage() {
@@ -87,7 +89,10 @@ function PokemonCard({ pokemon }: { pokemon: PokemonSummary }) {
         </div>
 
         <Button className="w-full" variant="outline" asChild>
-          <Link to="/pokemon/$name" params={{ name: pokemon.name }}>
+          <Link
+            to="/pokemon/$pokemonId"
+            params={{ pokemonId: pokemonId ?? "" }}
+          >
             Details
           </Link>
         </Button>
