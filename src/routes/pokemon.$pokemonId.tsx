@@ -15,18 +15,20 @@ import {
   AvatarImage,
 } from "#/components/ui/8bit/avatar";
 import "#/components/ui/8bit/styles/retro.css";
+import PaginationApp from "#/components/PaginationApp";
+import { useState } from "react";
 
 export const Route = createFileRoute("/pokemon/$pokemonId")({
   component: PokemonSheet,
 });
 
 function PokemonSheet() {
-  const pokemonId = Route.useParams().pokemonId;
+  const [pokemonId, setPokemonId] = useState(Route.useParams().pokemonId);
 
   const { data: pokemon, error } = useQuery(pokemonQueryOptions(pokemonId));
 
   return (
-    <div className="flex justify-center">
+    <div className="flex flex-col items-center gap-7">
       {error && <AppAlert title={error.message} />}
 
       <Card className="w-full sm:w-md retro pb-7">
@@ -99,6 +101,13 @@ function PokemonSheet() {
           </div>
         </CardContent>
       </Card>
+
+      <PaginationApp
+        isIndex={false}
+        previous={Math.max(1, +pokemonId - 1).toString()}
+        next={(+pokemonId + 1).toString()}
+        setUrl={setPokemonId}
+      />
     </div>
   );
 }

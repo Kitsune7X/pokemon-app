@@ -13,10 +13,12 @@ import {
 export default function PaginationApp({
   previous,
   next,
+  isIndex = true,
   setUrl,
 }: {
   previous: string | null;
   next: string | null;
+  isIndex?: boolean;
   setUrl: Dispatch<SetStateAction<string>>;
 }) {
   return (
@@ -27,12 +29,13 @@ export default function PaginationApp({
             <PaginationPrevious onClick={() => setUrl(previous)} />
           </PaginationItem>
         )}
-        <PaginationItem>
-          <PaginationLink onClick={() => setUrl(pokeApiBaseUrl)}>
-            1
-          </PaginationLink>
-        </PaginationItem>
-
+        {isIndex && (
+          <PaginationItem>
+            <PaginationLink onClick={() => setUrl(pokeApiBaseUrl)}>
+              1
+            </PaginationLink>
+          </PaginationItem>
+        )}
         <PaginationItem>
           <PaginationEllipsis />
         </PaginationItem>

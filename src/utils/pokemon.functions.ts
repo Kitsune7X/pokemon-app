@@ -19,6 +19,7 @@ export const pokemonQueryOptions = (id: string) =>
   queryOptions({
     queryKey: ["pokemon", id],
     queryFn: () => fetchPokemon({ data: { id } }),
+    placeholderData: keepPreviousData,
   });
 
 export const fetchPokemonList = createServerFn({ method: "GET" })
