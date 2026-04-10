@@ -111,5 +111,3 @@ function PokemonSheet() {
     </div>
   );
 }
-
-// TODO: Render Pokemon Sheet
