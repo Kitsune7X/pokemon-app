@@ -78,7 +78,9 @@ function PokemonCard({ pokemon }: { pokemon: PokemonSummary }) {
         <div className="flex items-center mr-auto gap-7 sm:gap-4">
           <Avatar className="size-20" variant="pixel">
             {spritesUrl && <AvatarImage alt={pokemon.name} src={spritesUrl} />}
-            <AvatarFallback>{<Spinner variant="diamond" />}</AvatarFallback>
+            <AvatarFallback>
+              <Spinner variant="diamond" />
+            </AvatarFallback>
           </Avatar>
           <div className="flex flex-col gap-2 items-start">
             <Badge>{`No.${pokemonId}`}</Badge>

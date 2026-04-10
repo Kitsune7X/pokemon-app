@@ -13,7 +13,6 @@ import {
 export default function PaginationApp({
   previous,
   next,
-
   setUrl,
 }: {
   previous: string | null;
