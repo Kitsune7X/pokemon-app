@@ -17,7 +17,7 @@ const config = defineConfig({
       headless: true,
       instances: [{ browser: "chromium" }, { browser: "firefox" }],
     },
-    exclude: ["**/e2e-tests/**"],
+    exclude: ["**/node_modules/**", "**/.git/**", "**/e2e-tests/**"],
   },
   resolve: {
     tsconfigPaths: true,
