@@ -4,7 +4,9 @@ Pokedex built with TanStack Start and deployed on Cloudflare worker
 
 ## App Page
 
-[Pokedex](https://pokemon-app.pokeapp.workers.dev/)
+[https://pokemon-app.pokeapp.workers.dev/](https://pokemon-app.pokeapp.workers.dev/)
+
+![Pokedex Banner](.images/pokedex.png)
 
 ## Development
 
