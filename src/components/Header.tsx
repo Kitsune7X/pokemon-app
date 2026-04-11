@@ -4,6 +4,7 @@ import { Image } from "@unpic/react";
 import MobileNav from "./MobileNav";
 import "./ui/8bit/styles/retro.css";
 import { Button } from "./ui/button";
+import ThemeToggle from "./ThemeToggle";
 
 export default function Header() {
   return (
@@ -46,6 +47,7 @@ export default function Header() {
               </svg>
             </Button>
           </a>
+          <ThemeToggle />
         </div>
       </div>
     </header>

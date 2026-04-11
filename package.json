@@ -7,14 +7,16 @@
   },
   "scripts": {
     "dev": "vite dev --port 3000",
-    "preview": "vite preview",
+    "preview": "npm run build && wrangler dev",
     "test": "vitest run",
     "lint": "eslint",
     "format": "prettier --check .",
     "check": "prettier --write . && eslint --fix",
     "test:browser": "vitest",
     "test:e2e": "npx playwright test",
-    "build": "vite build && tsc --noEmit"
+    "build": "vite build && tsc --noEmit",
+    "deploy": "npm run build && wrangler deploy",
+    "cf-typegen": "wrangler types"
   },
   "dependencies": {
     "@fontsource-variable/geist": "^5.2.8",
@@ -44,6 +46,8 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
+    "@cloudflare/vite-plugin": "^1.31.2",
+    "@cloudflare/vitest-pool-workers": "^0.14.3",
     "@playwright/test": "^1.59.1",
     "@tailwindcss/typography": "^0.5.19",
     "@tanstack/devtools-vite": "latest",
@@ -60,7 +64,8 @@
     "typescript": "^6.0.2",
     "vite": "^8.0.3",
     "vitest": "^4.1.2",
-    "vitest-browser-react": "^2.2.0"
+    "vitest-browser-react": "^2.2.0",
+    "wrangler": "^4.81.1"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
