@@ -38,25 +38,28 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
-  # deploy:
-  #   needs: [ci_checks]
-  #   runs-on: ubuntu-latest
+  deploy:
+    needs: [ci_checks]
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #     - uses: actions/checkout@v6
-  #     - uses: actions/setup-node@v6.3.0
-  #       with:
-  #         node-version: "24"
-  #     - run: npm ci
-  #     - name: Build
-  #       run: npm run build
-  #     - name: Install Playwright Browsers
-  #       run: npx playwright install --with-deps
-  #     - name: Run Playwright tests
-  #       run: npm run test:e2e
-  #     - uses: actions/upload-artifact@v4
-  #       if: ${{ !cancelled() }}
-  #       with:
-  #         name: playwright-report
-  #         path: playwright-report/
-  #         retention-days: 30
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6.3.0
+        with:
+          node-version: "24"
+      - name: Trigger Cloudflare Deployment hook
+        if: ${{ !contains(github.event.head_commit.message, '#skip') && github.event_name == 'push'}}
+        run: curl -X POST ${{ secrets.CF_DEPLOY_HOOK }}
+
+  # Tag version
+  tag_release:
+    needs: [ci_checks]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Bump version and tag
+        if: ${{ !contains(github.event.head_commit.message, '#skip') && github.event_name == 'push'}}
+        uses: anothrNick/github-tag-action@4ed44965e0db8dab2b466a16da04aec3cc312fd8
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: patch
