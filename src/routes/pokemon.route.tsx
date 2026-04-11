@@ -17,5 +17,3 @@ function PokemonRoute() {
     </section>
   );
 }
-
-// TODO: Refactor this to use Query for pagination

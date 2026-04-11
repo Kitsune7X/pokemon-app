@@ -34,4 +34,7 @@ export interface PokemonSheetResponse {
   weight: number;
   stats: PokemonStat[];
   abilities: PokemonAbility[];
+  sprites: {
+    front_default: string;
+  };
 }
