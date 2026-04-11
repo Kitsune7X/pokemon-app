@@ -18,3 +18,10 @@ test/**/__screenshots__/**/*
 
 .idea
 TODO.md
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
