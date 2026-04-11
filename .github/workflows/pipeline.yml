@@ -8,7 +8,7 @@ on:
     branches: [main]
     types: [opened, synchronize]
 jobs:
-  deployment_pipeline:
+  ci_checks:
     runs-on: ubuntu-latest
 
     steps:
@@ -26,5 +26,26 @@ jobs:
         run: npm run check
       - name: Test
         run: npm run test
+
+  deploy:
+    needs: [ci_checks]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6.3.0
+        with:
+          node-version: "24"
+      - run: npm ci
       - name: Build
         run: npm run build
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+      - name: Run Playwright tests
+        run: npm run test:e2e
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30

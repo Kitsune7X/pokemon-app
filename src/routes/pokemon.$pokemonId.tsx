@@ -60,7 +60,7 @@ function PokemonSheet() {
           {/* Stat Bar */}
           <div className="space-y-3">
             {pokemon?.stats.map((stat) => (
-              <div className="space-y-1">
+              <div className="space-y-1" key={stat.stat.name}>
                 <div className="flex sm:flex-row flex-col justify-between items-center">
                   <span className="text-sm font-medium text-yellow-500 uppercase">
                     {stat.stat.name}
